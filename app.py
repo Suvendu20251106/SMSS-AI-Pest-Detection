@@ -1,11 +1,6 @@
 import streamlit as st
 from PIL import Image
 import random
-import numpy as np
-import tensorflow as tf  # or import torch if using PyTorch
-
-# Load your pre-trained model
-model = tf.keras.models.load_model('path_to_your_model.h5')  # Adjust path as necessary
 
 # Bengali translations
 translations = {
@@ -46,17 +41,9 @@ if uploaded_file:
 
     if st.button(tr["detect"]):
         st.subheader(tr["result"])
-        
-        # Preprocess the image for the model
-        img = img.resize((224, 224))  # Resize to the input size of your model
-        img_array = np.array(img) / 255.0  # Normalize the image
-        img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
-
-        # Make prediction
-        prediction = model.predict(img_array)
-        pest_detected = prediction[0][0] > 0.5  # Assuming binary classification
-
-        crop = random.choice(["Wheat", "Rice", "Maize", "Apple"])  # You can modify this based on your model
+        # Simulate detection
+        pest_detected = random.choice([True, False])
+        crop = random.choice(["Wheat", "Rice", "Maize", "Apple"])
         solution = {
             "Wheat": "Use Neem spray",
             "Rice": "Apply Trichoderma",
